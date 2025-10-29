@@ -1,147 +1,317 @@
-/* ------------------------------
-   FONT IMPORT
------------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
-/* ------------------------------
-   GLOBAL RESET
------------------------------- */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  background-color: #fff;
-  font-family: "DM Mono", monospace;
-  color: #000;
+:root {
+    --dark: #000000;
+    --light: #f9f4eb;
+    --light2: #f0ece5;
+    --accent-1: #4f228f;
+    --accent-2: #83073d;
+    --accent-3: #000000;
 }
 
-/* ------------------------------
-   MENU (透明悬浮)
------------------------------- */
-.menu {
-  position: absolute; /* ✅ 从 fixed 改为 absolute，叠在图片上 */
-  top: 2rem;
-  left: 2rem;
-  right: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  z-index: 10;
-  background: none; /* ✅ 去掉黑底 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* 左侧名字 */
-.menu p {
-  color: #000000;
-  font-size: 1.8rem;
-  line-height: 1.2;
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin: 0;
-  text-align: left;
-  text-transform: capitalize;
-
-  /* ✅ 发光效果 */
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.7),
-               0 0 25px rgba(255, 255, 255, 0.4),
-               0 0 45px rgba(180, 200, 255, 0.2);
-
-  /* ✅ 呼吸动画 */
-  animation: glowPulse 2.5s ease-in-out infinite alternate,
-             fadeInDown 1.2s ease-out both;
+body {
+    font-family: "DM Sans";
 }
 
-/* 呼吸节奏动画 */
-@keyframes glowPulse {
-  from {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                 0 0 20px rgba(255, 255, 255, 0.3),
-                 0 0 35px rgba(180, 200, 255, 0.1);
-  }
-  to {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
-                 0 0 40px rgba(200, 220, 255, 0.6),
-                 0 0 60px rgba(180, 200, 255, 0.4);
-  }
+h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
-.menu button {
-  background: #fff;               /* ✅ 改成白底 */
-  color: #000;                    /* ✅ 黑字 */
-  border: none;                   /* 去掉边框 */
-  padding: 0.55rem 1.3rem;
-  border-radius: 3px;
-  font-size: 0.9rem;
-  font-family: "DM Mono", monospace;
-  font-weight: 600; /* ✅ 字体加粗 */
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* ✅ 轻微阴影，让按钮悬浮 */
-  animation: fadeInDown 1.2s ease-out both;
-  animation-delay: 0.2s;
+p {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
-/* 鼠标悬停效果 */
-.menu button:hover {
-  background: #000;
-  color: #fff;
-  box-shadow: 0 3px 15px rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+span {
+    text-transform: uppercase;
+    font-family: "DM Mono";
+    font-size: 0.75rem;
+    font-weight: 500;
 }
 
-/* ------------------------------
-   HERO SECTION
------------------------------- */
+nav {
+    position: fixed;
+    width: 100vw;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+section {
+    position: relative;
+    width: 100vw;
+    height: 100svh;
+    padding: 2rem;
+    overflow: hidden;
+}
+
 .hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+    background-color: var(--light);
+    color: #fff;
+}
+
+.about,
+.outro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-/* ------------------------------
-   FOOTER TEXT
------------------------------- */
-.hero-footer {
-  position: absolute;
-  bottom: 2rem;
-  left: 0;
-  width: 100%;
-  padding: 0 3vw; /* ✅ 动态左右间距，避免超出屏幕 */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  z-index: 5;
-
-  font-size: clamp(0.75rem, 0.9vw, 1rem); /* ✅ 自适应字号 */
-  letter-spacing: 0.12rem;
-  text-transform: uppercase;
-  color: #fff;
-  opacity: 0.9;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1.5s ease-out both;
-  box-sizing: border-box; /* ✅ 确保 padding 不影响宽度 */
+.hero-cards {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 2;
 }
 
-/* 可选：在极小屏幕时自动换行居中 */
-@media (max-width: 600px) {
-  .hero-footer {
+.hero-cards .card {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 5/7;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0 1rem;
+    justify-content: space-between;
+}
+
+.card-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-cards .card span {
+    font-size: 0.75rem;
+}
+
+.hero-cards .card#hero-card-1 {
+    background-color: var(--accent-1);
+    transform-origin: top right;
+    z-index: 2;
+}
+
+.hero-cards .card#hero-card-2 {
+    background-color: var(--accent-2);
+    z-index: 1;
+}
+
+.hero-cards .card#hero-card-3 {
+    background-color: var(--accent-3);
+    transform-origin: top left;
+    z-index: 0;
+}
+
+.services {
+    padding: 8rem 2rem;
+}
+
+.services-header {
+    position: relative;
+    width: 100%;
     text-align: center;
-  }
+    transform: translateY(400%);
+    will-change: transform;
+}
+
+.cards {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    z-index: -1;
+    background-color: var(--light);
+}
+
+.cards-container {
+    position: relative;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.cards-container .card {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 5/7;
+    perspective: 1000px;
+}
+
+.cards-container .card .card-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    animation: floating 2s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, -55%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+#card-1 .card-wrapper {
+    animation-delay: 0
+}
+
+#card-2 .card-wrapper {
+    animation-delay: 0.25s;
+}
+
+#card-3.card-wrapper {
+    animation-delay: 0.5s;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+
+.flip-card-front {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#card-1 .flip-card-front {
+    background-color: var(--accent-1);
+}
+
+#card-2 .flip-card-front {
+    background-color: var(--accent-2);
+}
+
+#card-3 .flip-card-front {
+    background-color: var(--accent-3);
+}
+
+.flip-card-back {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    background-color: #fff;
+    transform: rotateY(180deg);
+}
+
+.card-copy {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-copy p {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    background-color: var(--light2);
+    border-radius: 0.25rem;
+    text-align: center;
+    padding: 0.4rem 0.2rem;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+#card-1 {
+    transform: translateX(100%) translateY(-100%) rotate(-5deg) scale(0.25);
+    z-index: 2;
+}
+
+#card-2 {
+    transform: translateX(0%) translateY(-100%) rotate(0deg) scale(0.25);
+    z-index: 1;
+}
+
+#card-3 {
+    transform: translateX(-100%) translateY(-100%) rotate(5deg) scale(0.25);
+    z-index: 0;
+}
+
+.cards-container .card {
+    opacity: 0;
+}
+
+#card-1 .flip-card-front,
+#card-2 .flip-card-front,
+#card-3 .flip-card-front {
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(223, 188, 188, 0.4);
+}
+
+.flip-card-back {
+    background: #fff;
+    color: #000;
+}
+
+.flip-card-front span {
+    color: #fff;
+}
+
+.flip-card-back span {
+    color: #000;
+}
+
+.hero-cards .card {
+    color: #fff;
 }
