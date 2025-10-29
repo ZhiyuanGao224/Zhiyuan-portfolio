@@ -9,8 +9,9 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #fff;
   font-family: "DM Mono", monospace;
   color: #000;
@@ -20,15 +21,15 @@ html, body {
    MENU (透明悬浮)
 ------------------------------ */
 .menu {
-  position: absolute; /* ✅ 从 fixed 改为 absolute，叠在图片上 */
+  position: fixed;
   top: 2rem;
   left: 2rem;
   right: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  z-index: 10;
-  background: none; /* ✅ 去掉黑底 */
+  z-index: 100;
+  background: none;
 }
 
 /* 左侧名字 */
@@ -95,7 +96,7 @@ html, body {
 /* ------------------------------
    HERO SECTION
 ------------------------------ */
-.hero {
+#main-hero {
   position: relative;
   width: 100%;
   height: 100vh;
