@@ -44,94 +44,97 @@ function init() {
   ];
 
   let currentTarget = 0;
+  
 
   const topTexture = createPlaceholderTexture("#0000ff");
-  const bottomTexture = createPlaceholderTexture("#ff0000");
+const bottomTexture = createPlaceholderTexture("#ff0000");
 
-  const topTextureSize = new THREE.Vector2(1, 1);
-  const bottomTextureSize = new THREE.Vector2(1, 1);
+const topTextureSize = new THREE.Vector2(1, 1);
+const bottomTextureSize = new THREE.Vector2(1, 1);
 
-  const trailsMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      uPrevTrails: { value: null },
-      uMouse: { value: mouse },
-      uPrevMouse: { value: prevMouse },
-      uResolution: { value: new THREE.Vector2(size, size) },
-      uDecay: { value: 0.97 },
-      uIsMoving: { value: false },
+const trailsMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uPrevTrails: { value: null },
+    uMouse: { value: mouse },
+    uPrevMouse: { value: prevMouse },
+    uResolution: { value: new THREE.Vector2(size, size) },
+    uDecay: { value: 0.97 },
+    uIsMoving: { value: false },
+  },
+  vertexShader,
+  fragmentShader: fluidFragmentShader,
+});
+
+const displayMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uFluid: { value: null },
+    uTopTexture: { value: topTexture },
+    uBottomTexture: { value: bottomTexture },
+    uResolution: {
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight),
     },
-    vertexShader,
-    fragmentShader: fluidFragmentShader,
-  });
+    uDpr: { value: window.devicePixelRatio },
+    uTopTextureSize: { value: topTextureSize },
+    uBottomTextureSize: { value: bottomTextureSize },
+  },
+  vertexShader,
+  fragmentShader: displayFragmentShader,
+});
 
-  const displayMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      uFluid: { value: null },
-      uTopTexture: { value: topTexture },
-      uBottomTexture: { value: bottomTexture },
-      uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-      },
-      uDpr: { value: window.devicePixelRatio },
-      uTopTextureSize: { value: topTextureSize },
-      uBottomTextureSize: { value: bottomTextureSize },
-    },
-    vertexShader,
-    fragmentShader: displayFragmentShader,
-  });
+loadImage("网站part1/assets/portrait_top.JPG", topTexture, topTextureSize);
+loadImage("网站part1/assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
 
-  loadImage("assets/portrait_top.JPG", topTexture, topTextureSize);
-  loadImage("assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
+const planeGeometry = new THREE.PlaneGeometry(2, 2);
+const displayMesh = new THREE.Mesh(planeGeometry, displayMaterial);
+scene.add(displayMesh);
 
-  const planeGeometry = new THREE.PlaneGeometry(2, 2);
-  const displayMesh = new THREE.Mesh(planeGeometry, displayMaterial);
-  scene.add(displayMesh);
+const simMesh = new THREE.Mesh(planeGeometry, trailsMaterial);
+const simScene = new THREE.Scene();
+simScene.add(simMesh);
 
-  const simMesh = new THREE.Mesh(planeGeometry, trailsMaterial);
-  const simScene = new THREE.Scene();
-  simScene.add(simMesh);
 
-  renderer.setRenderTarget(pingPongTargets[0]);
-  renderer.clear();
-  renderer.setRenderTarget(pingPongTargets[1]);
-  renderer.clear();
-  renderer.setRenderTarget(null);
+renderer.setRenderTarget(pingPongTargets[0]);
+renderer.clear();
+renderer.setRenderTarget(pingPongTargets[1]);
+renderer.clear();
+renderer.setRenderTarget(null);
 
-  window.addEventListener("mousemove", onMouseMove);
-  window.addEventListener("touchmove", onTouchMove, { passive: false });
-  window.addEventListener("resize", onWindowResize);
+window.addEventListener("mousemove", onMouseMove);
+window.addEventListener("touchmove", onTouchMove, { passive: false });
+window.addEventListener("resize", onWindowResize);
 
-  animate();
+animate();
 
-  function createPlaceholderTexture(color) {
-    const canvas = document.createElement("canvas");
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = color;
-    ctx.fillRect(0, 0, 512, 512);
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.minFilter = THREE.LinearFilter;
-    return texture;
+function createPlaceholderTexture(color) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, 512, 512);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  return texture;
   }
+
 
   function loadImage(url, targetTexture, textureSizeVector) {
     const img = new Image();
     img.crossOrigin = "Anonymous";
-
+  
     img.onload = function () {
       const originalWidth = img.width;
       const originalHeight = img.height;
       textureSizeVector.set(originalWidth, originalHeight);
-
+  
       console.log(
         `Loaded texture: ${url}, size: ${originalWidth}x${originalHeight}`
       );
-
+  
       const maxSize = 4096;
       let newWidth = originalWidth;
       let newHeight = originalHeight;
-
+  
       if (originalWidth > maxSize || originalHeight > maxSize) {
         console.log("Image exceeds max texture size, resizing...");
         if (originalWidth > originalHeight) {
@@ -142,34 +145,33 @@ function init() {
           newWidth = Math.floor(originalWidth * (maxSize / originalHeight));
         }
       }
-
+  
       const canvas = document.createElement("canvas");
       canvas.width = newWidth;
       canvas.height = newHeight;
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
-
+  
       const newTexture = new THREE.CanvasTexture(canvas);
       newTexture.minFilter = THREE.LinearFilter;
       newTexture.magFilter = THREE.LinearFilter;
-
+  
       if (url.includes("top")) {
         displayMaterial.uniforms.uTopTexture.value = newTexture;
       } else {
         displayMaterial.uniforms.uBottomTexture.value = newTexture;
       }
     };
-
+  
     img.onerror = function (err) {
       console.error(`Error loading image ${url}:`, err);
     };
-
+  
     img.src = url;
   }
-
   function onMouseMove(event) {
     const canvasRect = canvas.getBoundingClientRect();
-
+  
     if (
       event.clientX >= canvasRect.left &&
       event.clientX <= canvasRect.right &&
@@ -177,25 +179,25 @@ function init() {
       event.clientY <= canvasRect.bottom
     ) {
       prevMouse.copy(mouse);
-
+  
       mouse.x = (event.clientX - canvasRect.left) / canvasRect.width;
       mouse.y = 1 - (event.clientY - canvasRect.top) / canvasRect.height;
-
+  
       isMoving = true;
       lastMoveTime = performance.now();
     } else {
       isMoving = false;
     }
   }
-
+  
   function onTouchMove(event) {
     if (event.touches.length > 0) {
       event.preventDefault();
-
+  
       const canvasRect = canvas.getBoundingClientRect();
       const touchX = event.touches[0].clientX;
       const touchY = event.touches[0].clientY;
-
+  
       if (
         touchX >= canvasRect.left &&
         touchX <= canvasRect.right &&
@@ -203,10 +205,10 @@ function init() {
         touchY <= canvasRect.bottom
       ) {
         prevMouse.copy(mouse);
-
+  
         mouse.x = (touchX - canvasRect.left) / canvasRect.width;
         mouse.y = 1 - (touchY - canvasRect.top) / canvasRect.height;
-
+  
         isMoving = true;
         lastMoveTime = performance.now();
       } else {
@@ -214,226 +216,39 @@ function init() {
       }
     }
   }
-
   function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
-
+  
     displayMaterial.uniforms.uResolution.value.set(
       window.innerWidth,
       window.innerHeight
     );
     displayMaterial.uniforms.uDpr.value = window.devicePixelRatio;
   }
-
+  
   function animate() {
     requestAnimationFrame(animate);
-
+  
     if (isMoving && performance.now() - lastMoveTime > 50) {
       isMoving = false;
     }
-
+  
     const prevTarget = pingPongTargets[currentTarget];
     currentTarget = (currentTarget + 1) % 2;
     const currentRenderTarget = pingPongTargets[currentTarget];
-
+  
     trailsMaterial.uniforms.uPrevTrails.value = prevTarget.texture;
     trailsMaterial.uniforms.uMouse.value.copy(mouse);
     trailsMaterial.uniforms.uPrevMouse.value.copy(prevMouse);
     trailsMaterial.uniforms.uIsMoving.value = isMoving;
-
+  
     renderer.setRenderTarget(currentRenderTarget);
     renderer.render(simScene, camera);
-
+  
     displayMaterial.uniforms.uFluid.value = currentRenderTarget.texture;
-
+  
     renderer.setRenderTarget(null);
     renderer.render(scene, camera);
   }
-
-  initScrollAnimations();
 }
 
-function initScrollAnimations() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.warn('GSAP or ScrollTrigger not loaded');
-    return;
-  }
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  const lenis = new Lenis();
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
-  const smoothStep = (p) => p * p * (3 - 2 * p);
-
-  ScrollTrigger.create({
-    trigger: ".hero",
-    start: "top top",
-    end: "75% top",
-    scrub: 1,
-    onUpdate: (self) => {
-      const progress = self.progress;
-
-      const heroCardContainerOpacity = gsap.utils.interpolate(
-        1,
-        0.5,
-        smoothStep(progress)
-      );
-      gsap.set(".hero-cards", { opacity: heroCardContainerOpacity });
-
-      ["#hero-card-1", "#hero-card-2", "#hero-card-3"].forEach(
-        (cardId, index) => {
-          const delay = index * 0.9;
-          const cardProgress = gsap.utils.clamp(
-            0,
-            1,
-            (progress - delay * 0.1) / (1 - delay * 0.1)
-          );
-
-          const y = gsap.utils.interpolate("0%", "250%", smoothStep(cardProgress));
-          const scale = gsap.utils.interpolate(1, 0.75, smoothStep(cardProgress));
-
-          let x = "0%";
-          let rotation = 0;
-          if (index === 0) {
-            x = gsap.utils.interpolate("0%", "90%", smoothStep(cardProgress));
-            rotation = gsap.utils.interpolate(0, -15, smoothStep(cardProgress));
-          } else if (index === 2) {
-            x = gsap.utils.interpolate("0%", "-90%", smoothStep(cardProgress));
-            rotation = gsap.utils.interpolate(0, 15, smoothStep(cardProgress));
-          }
-
-          gsap.set(cardId, { y, scale, x, rotation });
-        }
-      );
-    }
-  });
-
-  ScrollTrigger.create({
-    trigger: ".services",
-    start: "top top",
-    end: `+=${window.innerHeight * 4}px`,
-    pin: ".services",
-    pinSpacing: true,
-  });
-
-  ScrollTrigger.create({
-    trigger: ".services",
-    start: "top top",
-    end: `+=${window.innerHeight * 4}px`,
-    onLeave: () => {
-      const servicesSection = document.querySelector(".services");
-      const servicesRect = servicesSection.getBoundingClientRect();
-      const servicesTop = servicesRect.top + window.pageYOffset;
-
-      gsap.set(".cards", {
-        position: "absolute",
-        top: servicesTop,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-      });
-    },
-    onEnterBack: () => {
-      gsap.set(".cards", {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-      });
-    }
-  });
-
-  ScrollTrigger.create({
-    trigger: ".services",
-    start: "top bottom",
-    end: `+=${window.innerHeight * 4}px`,
-    scrub: 1,
-    onUpdate: (self) => {
-      const progress = self.progress;
-
-      const headerProgress = gsap.utils.clamp(0, 1, progress * 0.9);
-      const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
-      gsap.set(".services-header", { y: headerY });
-
-      ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
-        const delay = index * 0.5;
-        const cardProgress = gsap.utils.clamp(
-          0,
-          1,
-          (progress - delay * 0.1) / (0.9 - delay * 0.1)
-        );
-        const innerCard = document.querySelector(`${cardId} .flip-card-inner`);
-
-        let y;
-        if (cardProgress < 0.4) {
-          const normalizedProgress = cardProgress / 0.4;
-          y = gsap.utils.interpolate("-100%", "50%",
-            smoothStep(normalizedProgress));
-        } else if (cardProgress < 0.6) {
-          const normalizedProgress = (cardProgress - 0.4) / 0.2;
-          y = gsap.utils.interpolate("50%", "0%", smoothStep(normalizedProgress));
-        } else {
-          y = "0%";
-        }
-
-        let scale;
-        if (cardProgress < 0.4) {
-          const normalizedProgress = cardProgress / 0.4;
-          scale = gsap.utils.interpolate(0.25, 0.75, smoothStep(normalizedProgress));
-        } else if (cardProgress < 0.6) {
-          const normalizedProgress = (cardProgress - 0.4) / 0.2;
-          scale = gsap.utils.interpolate(0.75, 1, smoothStep(normalizedProgress));
-        } else {
-          scale = 1;
-        }
-
-        let opacity;
-        if (cardProgress < 0.2) {
-          const normalizedProgress = cardProgress / 0.2;
-          opacity = smoothStep(normalizedProgress);
-        } else {
-          opacity = 1;
-        }
-
-        let x, rotate, rotateY;
-        if (cardProgress < 0.6) {
-          x = index === 0 ? "100%" : index === 1 ? "0%" : "-100%";
-          rotate = index === 0 ? -5 : index === 1 ? 0 : 5;
-          rotateY = 0;
-        } else if (cardProgress < 1) {
-          const normalizedProgress = (cardProgress - 0.6) / 0.4;
-          x = gsap.utils.interpolate(
-            index === 0 ? "100%" : index === 1 ? "0%" : "-100%",
-            "0%",
-            smoothStep(normalizedProgress)
-          );
-          rotate = gsap.utils.interpolate(
-            index === 0 ? -5 : index === 1 ? 0 : 5,
-            0,
-            smoothStep(normalizedProgress)
-          );
-          rotateY = smoothStep(normalizedProgress) * 180;
-        } else {
-          x = "0%";
-          rotate = 0;
-          rotateY = 180;
-        }
-
-        gsap.set(cardId, {
-          y,
-          x,
-          scale,
-          rotate,
-          opacity,
-        });
-        gsap.set(innerCard, { rotationY: rotateY });
-      });
-    }
-  });
-}
