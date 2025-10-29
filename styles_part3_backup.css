@@ -24,24 +24,24 @@ html, body {
     box-sizing: border-box;
 }
 
-#package2 h1 {
+h1 {
     font-size: 1.5rem;
     font-weight: 500;
 }
 
-#package2 p {
+p {
     font-size: 1.1rem;
     font-weight: 500;
 }
 
-#package2 span {
+span {
     text-transform: uppercase;
     font-family: "DM Mono";
     font-size: 0.75rem;
     font-weight: 500;
 }
 
-#package2 nav {
+nav {
     position: fixed;
     width: 100vw;
     padding: 2rem;
@@ -51,7 +51,9 @@ html, body {
     z-index: 2;
 }
 
-#package2 section {
+
+
+section {
     position: relative;
     width: 100vw;
     height: 100svh;
@@ -59,13 +61,13 @@ html, body {
     overflow: hidden;
 }
 
-#package2 .hero-part3 {
+.hero {
     background-color: var(--light);
     color: #fff;
 }
 
-#package2 .about,
-#package2 .outro {
+.about,
+.outro {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +75,7 @@ html, body {
     color: var(--light);
 }
 
-#package2 .hero-cards {
+.hero-cards {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -84,7 +86,7 @@ html, body {
     gap: 1rem;
 }
 
-#package2 .hero-cards .card {
+.hero-cards .card {
     flex: 1;
     position: relative;
     aspect-ratio: 5/7;
@@ -95,38 +97,38 @@ html, body {
     justify-content: space-between;
 }
 
-#package2 .card-title {
+.card-title {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-#package2 .hero-cards .card span {
+.hero-cards .card span {
     font-size: 0.75rem;
 }
 
-#package2 .hero-cards .card#hero-card-1 {
+.hero-cards .card#hero-card-1 {
     background-color: var(--accent-1);
     transform-origin: top right;
     z-index: 2;
 }
 
-#package2 .hero-cards .card#hero-card-2 {
+.hero-cards .card#hero-card-2 {
     background-color: var(--accent-2);
     z-index: 1;
 }
 
-#package2 .hero-cards .card#hero-card-3 {
+.hero-cards .card#hero-card-3 {
     background-color: var(--accent-3);
     transform-origin: top left;
     z-index: 0;
 }
 
-#package2 .services {
+.services {
     padding: 8rem 2rem;
 }
 
-#package2 .services-header {
+.services-header {
     position: relative;
     width: 100%;
     text-align: center;
@@ -134,7 +136,7 @@ html, body {
     will-change: transform;
 }
 
-#package2 .cards {
+.cards {
     position: fixed;
     top: 0;
     left: 0;
@@ -146,7 +148,7 @@ html, body {
     background-color: var(--light);
 }
 
-#package2 .cards-container {
+.cards-container {
     position: relative;
     width: 75%;
     height: 100%;
@@ -156,14 +158,14 @@ html, body {
     gap: 4rem;
 }
 
-#package2 .cards-container .card {
+.cards-container .card {
     flex: 1;
     position: relative;
     aspect-ratio: 5/7;
     perspective: 1000px;
 }
 
-#package2 .cards-container .card .card-wrapper {
+.cards-container .card .card-wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -187,27 +189,27 @@ html, body {
     }
 }
 
-#package2 #card-1 .card-wrapper {
+#card-1 .card-wrapper {
     animation-delay: 0
 }
 
-#package2 #card-2 .card-wrapper {
+#card-2 .card-wrapper {
     animation-delay: 0.25s;
 }
 
-#package2 #card-3 .card-wrapper {
+#card-3.card-wrapper {
     animation-delay: 0.5s;
 }
 
-#package2 .flip-card-inner {
+.flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
 }
 
-#package2 .flip-card-front,
-#package2 .flip-card-back {
+.flip-card-front,
+.flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -216,7 +218,7 @@ html, body {
     overflow: hidden;
 }
 
-#package2 .flip-card-front {
+.flip-card-front {
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -224,19 +226,19 @@ html, body {
     align-items: center;
 }
 
-#package2 #card-1 .flip-card-front {
+#card-1 .flip-card-front {
     background-color: var(--accent-1);
 }
 
-#package2 #card-2 .flip-card-front {
+#card-2 .flip-card-front {
     background-color: var(--accent-2);
 }
 
-#package2 #card-3 .flip-card-front {
+#card-3 .flip-card-front {
     background-color: var(--accent-3);
 }
 
-#package2 .flip-card-back {
+.flip-card-back {
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -246,7 +248,7 @@ html, body {
     transform: rotateY(180deg);
 }
 
-#package2 .card-copy {
+.card-copy {
     width: 100%;
     height: 100%;
     display: flex;
@@ -254,55 +256,57 @@ html, body {
     gap: 0.5rem;
 }
 
-#package2 .card-copy p {
+.card-copy p {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-size: clamp(0.7rem, 1vw, 0.9rem); /* 自动缩放字体大小 */
     background-color: var(--light2);
     border-radius: 0.25rem;
-    text-align: center;
-    padding: 0.4rem 0.2rem;
-    line-height: 1.2;
-    word-break: break-word;
+    text-align: center; /* 多行文字居中 */
+    padding: 0.4rem 0.2rem; /* 保留一些内边距 */
+    line-height: 1.2; /* 防止文字太挤 */
+    word-break: break-word; /* 长单词自动换行 */
 }
 
-#package2 #card-1 {
+#card-1 {
     transform: translateX(100%) translateY(-100%) rotate(-5deg) scale(0.25);
     z-index: 2;
 }
 
-#package2 #card-2 {
+#card-2 {
     transform: translateX(0%) translateY(-100%) rotate(0deg) scale(0.25);
     z-index: 1;
 }
 
-#package2 #card-3 {
+#card-3 {
     transform: translateX(-100%) translateY(-100%) rotate(5deg) scale(0.25);
     z-index: 0;
 }
 
-#package2 .cards-container .card {
+.cards-container .card {
     opacity: 0;
 }
-
-#package2 #card-1 .flip-card-front,
-#package2 #card-2 .flip-card-front,
-#package2 #card-3 .flip-card-front {
-  color: #fff;
+/* === 卡片正面 === */
+#card-1 .flip-card-front,
+#card-2 .flip-card-front,
+#card-3 .flip-card-front {
+  color: #fff; /* 正面文字白色 */
   box-shadow: 0 8px 20px rgba(223, 188, 188, 0.4);
 }
 
-#package2 .flip-card-back {
-  background: #fff;
-  color: #000;
+/* === 卡片背面 === */
+.flip-card-back {
+  background: #fff; /* 背景白色 */
+  color: #000; /* 文字黑色 */
 }
 
-#package2 .flip-card-front span {
+
+.flip-card-front span {
   color: #fff;
 }
 
-#package2 .flip-card-back span {
+.flip-card-back span {
   color: #000;
 }

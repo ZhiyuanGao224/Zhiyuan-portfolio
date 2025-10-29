@@ -51,6 +51,8 @@ html, body {
     z-index: 2;
 }
 
+
+
 #package2 section {
     position: relative;
     width: 100vw;
@@ -195,7 +197,7 @@ html, body {
     animation-delay: 0.25s;
 }
 
-#package2 #card-3 .card-wrapper {
+#package2 #card-3.card-wrapper {
     animation-delay: 0.5s;
 }
 
@@ -259,13 +261,13 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-size: clamp(0.7rem, 1vw, 0.9rem); /* 自动缩放字体大小 */
     background-color: var(--light2);
     border-radius: 0.25rem;
-    text-align: center;
-    padding: 0.4rem 0.2rem;
-    line-height: 1.2;
-    word-break: break-word;
+    text-align: center; /* 多行文字居中 */
+    padding: 0.4rem 0.2rem; /* 保留一些内边距 */
+    line-height: 1.2; /* 防止文字太挤 */
+    word-break: break-word; /* 长单词自动换行 */
 }
 
 #package2 #card-1 {
@@ -286,18 +288,20 @@ html, body {
 #package2 .cards-container .card {
     opacity: 0;
 }
-
+/* === 卡片正面 === */
 #package2 #card-1 .flip-card-front,
 #package2 #card-2 .flip-card-front,
 #package2 #card-3 .flip-card-front {
-  color: #fff;
+  color: #fff; /* 正面文字白色 */
   box-shadow: 0 8px 20px rgba(223, 188, 188, 0.4);
 }
 
+/* === 卡片背面 === */
 #package2 .flip-card-back {
-  background: #fff;
-  color: #000;
+  background: #fff; /* 背景白色 */
+  color: #000; /* 文字黑色 */
 }
+
 
 #package2 .flip-card-front span {
   color: #fff;
