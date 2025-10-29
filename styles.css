@@ -4,24 +4,22 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@500;600&display=swap");
 
 /* ------------------------------
-   GLOBAL RESET FOR PACKAGE 1
+   GLOBAL RESET
 ------------------------------ */
-#package1 {
+html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   background-color: #fff;
   font-family: "DM Mono", monospace;
   color: #000;
-  position: relative;
-  width: 100%;
 }
 
 /* ------------------------------
    MENU (透明悬浮)
 ------------------------------ */
-#package1 .menu {
+.menu {
   position: absolute; /* ✅ 从 fixed 改为 absolute，叠在图片上 */
   top: 2rem;
   left: 2rem;
@@ -34,7 +32,7 @@
 }
 
 /* 左侧名字 */
-#package1 .menu p {
+.menu p {
   color: #000000;
   font-size: 1.8rem;
   line-height: 1.2;
@@ -69,7 +67,7 @@
   }
 }
 
-#package1 .menu button {
+.menu button {
   background: #fff;               /* ✅ 改成白底 */
   color: #000;                    /* ✅ 黑字 */
   border: none;                   /* 去掉边框 */
@@ -87,7 +85,7 @@
 }
 
 /* 鼠标悬停效果 */
-#package1 .menu button:hover {
+.menu button:hover {
   background: #000;
   color: #fff;
   box-shadow: 0 3px 15px rgba(255, 255, 255, 0.3);
@@ -97,14 +95,14 @@
 /* ------------------------------
    HERO SECTION
 ------------------------------ */
-#package1 .hero {
+.hero {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
-#package1 canvas {
+canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -116,7 +114,7 @@
 /* ------------------------------
    FOOTER TEXT
 ------------------------------ */
-#package1 .hero-footer {
+.hero-footer {
   position: absolute;
   bottom: 2rem;
   left: 0;
@@ -139,7 +137,7 @@
 
 /* 可选：在极小屏幕时自动换行居中 */
 @media (max-width: 600px) {
-  #package1 .hero-footer {
+  .hero-footer {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
