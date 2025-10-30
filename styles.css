@@ -422,4 +422,18 @@ span {
     max-width: 250px;
     max-height: 400px;
   }
+   .cards-container .card {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+}
 }
