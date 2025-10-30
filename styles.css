@@ -153,21 +153,18 @@ section.hero canvas {
    ===================================================== */
 #part3 {
   font-family: "DM Sans";
-}
-
-#part3 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#part3 {
   --dark: #000000;
   --light: #f9f4eb;
   --light2: #f0ece5;
   --accent-1: #4f228f;
   --accent-2: #83073d;
   --accent-3: #000000;
+}
+
+#part3 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 #part3 h1 {
@@ -207,7 +204,7 @@ section.hero canvas {
 
 #part3 section.hero-cards-section {
   background-color: var(--light);
-  color: #fff;
+  color: #000;
   position: relative;
   width: 100%;
   height: 100vh;

@@ -1,14 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
+(function() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.error('GSAP or ScrollTrigger not loaded');
+        return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
-    const lenis = new Lenis();
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+    });
+
     lenis.on("scroll", ScrollTrigger.update);
+
     gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
 
     const smoothStep = (p) => p * p * (3 - 2 * p);
+
+    gsap.set(".hero-cards", { opacity: 1 });
+    gsap.set(["#hero-card-1", "#hero-card-2", "#hero-card-3"], {
+        y: "0%",
+        scale: 1,
+        x: "0%",
+        rotation: 0
+    });
 
     ScrollTrigger.create({
         trigger: ".hero-cards-section",
@@ -175,4 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     });
-});
+
+    ScrollTrigger.refresh();
+    console.log('Part3 animations initialized - ScrollTriggers:', ScrollTrigger.getAll().length);
+})();
