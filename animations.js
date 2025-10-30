@@ -172,14 +172,20 @@ export function initCardAnimations() {
           rotateY = 180;
         }
 
-        gsap.set(cardId, {
-          y,
-          x,
-          scale,
-          rotate,
-          opacity,
-        });
-        gsap.set(innerCard, { rotationY: rotateY });
+     // 不再在外层加 rotate，避免覆盖 3D 翻转
+gsap.set(cardId, {
+  y,
+  x,
+  scale,
+  opacity,
+});
+
+// 把旋转和翻转都交给内层处理
+gsap.set(innerCard, {
+  rotationY: rotateY,
+  rotate,
+});
+
       });
     }
   });
