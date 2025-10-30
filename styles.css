@@ -144,75 +144,37 @@ section.hero canvas {
     text-align: center;
   }
 }
-/* ================================
-   🎬 PART 3 (Animated Cards Section)
-================================== */
+
 /* =====================================================
-   🎬 PART 3 (Animated Cards Section)
-   Only affects <section id="part3"> ... </section>
+   🎬 CARD ANIMATIONS SECTION
    ===================================================== */
-#part3 {
-  font-family: "DM Sans";
-  --dark: #000000;
-  --light: #f9f4eb;
-  --light2: #f0ece5;
-  --accent-1: #4f228f;
-  --accent-2: #83073d;
-  --accent-3: #000000;
+
+:root {
+    --dark: #000;
+    --light: #f9f4eb;
+    --light2: #f0ece5;
+    --accent-1: #e5d9f6;
+    --accent-2: #ffd2f3;
+    --accent-3: #fcdca6;
 }
 
-#part3 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#part3 h1 {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-#part3 p {
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
-#part3 span {
-  text-transform: uppercase;
-  font-family: "DM Mono";
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-#part3 nav {
-  position: fixed;
-  width: 100vw;
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 2;
-}
-
-#part3 section {
+section.cards-hero {
   position: relative;
   width: 100vw;
-  height: 100svh;
-  padding: 2rem;
-  overflow: hidden;
-}
-
-#part3 section.hero-cards-section {
-  background-color: var(--light);
-  color: #000;
-  position: relative;
-  width: 100%;
   height: 100vh;
+  padding: 2rem;
   overflow: hidden;
+  background-color: var(--light);
+  color: var(--dark);
 }
 
-#part3 .about,
-#part3 .outro {
+.about,
+.outro {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,7 +182,13 @@ section.hero canvas {
   color: var(--light);
 }
 
-#part3 .hero-cards {
+.about h1,
+.outro h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.hero-cards {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -231,7 +199,7 @@ section.hero canvas {
   gap: 1rem;
 }
 
-#part3 .hero-cards .card {
+.hero-cards .card {
   flex: 1;
   position: relative;
   aspect-ratio: 5/7;
@@ -242,38 +210,45 @@ section.hero canvas {
   justify-content: space-between;
 }
 
-#part3 .card-title {
+.card-title {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-#part3 .hero-cards .card span {
+.hero-cards .card span {
   font-size: 0.75rem;
+  text-transform: uppercase;
+  font-family: "DM Mono";
+  font-weight: 500;
 }
 
-#part3 #hero-card-1 {
+#hero-card-1 {
   background-color: var(--accent-1);
   transform-origin: top right;
   z-index: 2;
 }
 
-#part3 #hero-card-2 {
+#hero-card-2 {
   background-color: var(--accent-2);
   z-index: 1;
 }
 
-#part3 #hero-card-3 {
+#hero-card-3 {
   background-color: var(--accent-3);
   transform-origin: top left;
   z-index: 0;
 }
 
-#part3 .services {
+.services {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   padding: 8rem 2rem;
+  overflow: hidden;
 }
 
-#part3 .services-header {
+.services-header {
   position: relative;
   width: 100%;
   text-align: center;
@@ -281,7 +256,12 @@ section.hero canvas {
   will-change: transform;
 }
 
-#part3 .cards {
+.services-header h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.cards {
   position: fixed;
   top: 0;
   left: 0;
@@ -294,7 +274,7 @@ section.hero canvas {
   background-color: var(--light);
 }
 
-#part3 .cards-container {
+.cards-container {
   position: relative;
   width: 75%;
   height: 100%;
@@ -304,7 +284,7 @@ section.hero canvas {
   gap: 4rem;
 }
 
-#part3 .cards-container .card {
+.cards-container .card {
   flex: 1;
   position: relative;
   aspect-ratio: 5/7;
@@ -312,21 +292,35 @@ section.hero canvas {
   opacity: 0;
 }
 
-#part3 .card .card-wrapper {
-  position: relative;
+.cards-container .card .card-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
+  animation: floating 2s infinite ease-in-out;
 }
 
-#part3 .flip-card-inner {
+@keyframes floating {
+  0% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, -55%); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+#card-1 .card-wrapper { animation-delay: 0s; }
+#card-2 .card-wrapper { animation-delay: 0.25s; }
+#card-3 .card-wrapper { animation-delay: 0.5s; }
+
+.flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
 }
 
-#part3 .flip-card-front,
-#part3 .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -335,7 +329,7 @@ section.hero canvas {
   overflow: hidden;
 }
 
-#part3 .flip-card-front {
+.flip-card-front {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -343,11 +337,11 @@ section.hero canvas {
   align-items: center;
 }
 
-#part3 #card-1 .flip-card-front { background-color: var(--accent-1); }
-#part3 #card-2 .flip-card-front { background-color: var(--accent-2); }
-#part3 #card-3 .flip-card-front { background-color: var(--accent-3); }
+#card-1 .flip-card-front { background-color: var(--accent-1); }
+#card-2 .flip-card-front { background-color: var(--accent-2); }
+#card-3 .flip-card-front { background-color: var(--accent-3); }
 
-#part3 .flip-card-back {
+.flip-card-back {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -355,10 +349,9 @@ section.hero canvas {
   gap: 2rem;
   background-color: #fff;
   transform: rotateY(180deg);
-  color: #000;
 }
 
-#part3 .card-copy {
+.card-copy {
   width: 100%;
   height: 100%;
   display: flex;
@@ -366,38 +359,29 @@ section.hero canvas {
   gap: 0.5rem;
 }
 
-#part3 .card-copy p {
+.card-copy p {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  font-size: 1rem;
+  font-weight: 500;
   background-color: var(--light2);
   border-radius: 0.25rem;
-  text-align: center;
-  padding: 0.4rem 0.2rem;
-  line-height: 1.2;
-  word-break: break-word;
 }
 
-#part3 #card-1 {
+#card-1 {
   transform: translateX(100%) translateY(-100%) rotate(-5deg) scale(0.25);
   z-index: 2;
 }
 
-#part3 #card-2 {
+#card-2 {
   transform: translateX(0%) translateY(-100%) rotate(0deg) scale(0.25);
   z-index: 1;
 }
 
-#part3 #card-3 {
+#card-3 {
   transform: translateX(-100%) translateY(-100%) rotate(5deg) scale(0.25);
   z-index: 0;
 }
-
-/* === 正反面样式 === */
-#part3 .flip-card-front { color: #fff; box-shadow: 0 8px 20px rgba(223,188,188,0.4); }
-#part3 .flip-card-back { background: #fff; color: #000; }
-#part3 .flip-card-front span { color: #fff; }
-#part3 .flip-card-back span { color: #000; }
 
