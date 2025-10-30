@@ -109,8 +109,8 @@ function createPlaceholderTexture(color) {
   texture.minFilter = THREE.LinearFilter;
   return texture;
   }
-  loadImage("./assets/portrait_top.jpg", topTexture, topTextureSize);
-  loadImage("./assets/portrait_bottom.png", bottomTexture, bottomTextureSize);
+  loadImage("assets/portrait_top.jpg", topTexture, topTextureSize);
+  loadImage("assets/portrait_bottom.png", bottomTexture, bottomTextureSize);
   
 
   function loadImage(url, targetTexture, textureSizeVector) {
