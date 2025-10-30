@@ -61,7 +61,7 @@ export function initCardAnimations() {
   ScrollTrigger.create({
     trigger: ".services-section",
     start: "top top",
-    end: `+=${window.innerHeight * 4}px`,
+    end: `+=${window.innerHeight * 5}px`,
     pin: ".services-section",
     pinSpacing: true,
   });
@@ -69,7 +69,7 @@ export function initCardAnimations() {
   ScrollTrigger.create({
     trigger: ".services-section",
     start: "top top",
-    end: `+=${window.innerHeight * 4}px`,
+    end: `+=${window.innerHeight * 5}px`,
     onLeave: () => {
       const servicesSection = document.querySelector(".services-section");
       const servicesRect = servicesSection.getBoundingClientRect();
@@ -97,21 +97,23 @@ export function initCardAnimations() {
   ScrollTrigger.create({
     trigger: ".services-section",
     start: "top bottom",
-    end: `+=${window.innerHeight * 4}px`,
+    end: `+=${window.innerHeight * 5}px`,
     scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
 
-      const headerProgress = gsap.utils.clamp(0, 1, progress * 0.9);
+      const headerProgress = gsap.utils.clamp(0, 1, progress * 0.2);
       const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
       gsap.set(".services-header", { y: headerY });
 
       ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
+        const adjustedProgress = Math.max(0, (progress - 0.2) / 0.8);
+
         const delay = index * 0.5;
         const cardProgress = gsap.utils.clamp(
           0,
           1,
-          (progress - delay * 0.1) / (0.9 - delay * 0.1)
+          (adjustedProgress - delay * 0.1) / (0.9 - delay * 0.1)
         );
         const innerCard = document.querySelector(`${cardId} .flip-card-inner`);
 
