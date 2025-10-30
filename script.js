@@ -74,9 +74,6 @@ const displayMaterial = new THREE.ShaderMaterial({
   fragmentShader: displayFragmentShader,
 });
 
-loadImage("assets/portrait_top.JPG", topTexture, topTextureSize);
-loadImage("assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
-
 const planeGeometry = new THREE.PlaneGeometry(2, 2);
 const displayMesh = new THREE.Mesh(planeGeometry, displayMaterial);
 scene.add(displayMesh);
@@ -109,8 +106,8 @@ function createPlaceholderTexture(color) {
   texture.minFilter = THREE.LinearFilter;
   return texture;
   }
-  loadImage("assets/portrait_top.jpg", topTexture, topTextureSize);
-  loadImage("assets/portrait_bottom.png", bottomTexture, bottomTextureSize);
+  loadImage("assets/portrait_top.JPG", topTexture, topTextureSize);
+  loadImage("assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
   
 
   function loadImage(url, targetTexture, textureSizeVector) {
