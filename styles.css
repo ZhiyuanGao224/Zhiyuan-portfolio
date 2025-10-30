@@ -149,8 +149,17 @@ section.hero canvas {
 ================================== */
 /* =====================================================
    🎬 PART 3 (Animated Cards Section)
-   Only affects <section id="part3"> ... </section>
+   CSS Variables for Part 3
    ===================================================== */
+:root {
+  --dark: #000000;
+  --light: #f9f4eb;
+  --light2: #f0ece5;
+  --accent-1: #4f228f;
+  --accent-2: #83073d;
+  --accent-3: #000000;
+}
+
 #part3 {
   font-family: "DM Sans";
 }
@@ -159,15 +168,6 @@ section.hero canvas {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-#part3 :root {
-  --dark: #000000;
-  --light: #f9f4eb;
-  --light2: #f0ece5;
-  --accent-1: #4f228f;
-  --accent-2: #83073d;
-  --accent-3: #000000;
 }
 
 #part3 h1 {
