@@ -1,58 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
+/* =====================================================
+   🎨 CSS VARIABLES
+   ===================================================== */
+:root {
+  --dark: #000;
+  --light: #f9f4eb;
+  --light2: #f0ece5;
+  --accent-1: #e5d9f6;
+  --accent-2: #ffd2f3;
+  --accent-3: #fcdca6;
+}
 
-/* ------------------------------
-   GLOBAL RESET
------------------------------- */
-html, body {
+/* =====================================================
+   🔧 RESET & BASE STYLES
+   ===================================================== */
+* {
   margin: 0;
   padding: 0;
-  min-height: 100%;     /* ✅ 不固定高度，允许滚动 */
-  overflow-x: hidden;   /* ✅ 只隐藏水平滚动 */
-  overflow-y: auto;     /* ✅ 允许垂直滚动 */
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #fff;
-  font-family: "DM Mono", monospace;
+  font-family: "DM Sans", sans-serif;
   color: #000;
 }
 
+h2 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 500;
+}
 
-/* ------------------------------
-   MENU (透明悬浮)
------------------------------- */
-.menu {
-  position: absolute; /* ✅ 从 fixed 改为 absolute，叠在图片上 */
+p {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 500;
+}
+
+span {
+  text-transform: uppercase;
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* =====================================================
+   🎯 HEADER
+   ===================================================== */
+.site-header {
+  position: absolute;
   top: 2rem;
   left: 2rem;
   right: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  z-index: 10;
-  background: none; /* ✅ 去掉黑底 */
+  z-index: 100;
+  background: none;
 }
 
-/* 左侧名字 */
-.menu p {
-  color: #000000;
-  font-size: 1.8rem;
+.logo {
+  color: #000;
+  font-size: clamp(1.5rem, 2.5vw, 1.8rem);
   line-height: 1.2;
   font-family: "Playfair Display", serif;
   font-weight: 600;
   letter-spacing: 1px;
-  margin: 0;
-  text-align: left;
   text-transform: capitalize;
-
-  /* ✅ 发光效果 */
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.7),
                0 0 25px rgba(255, 255, 255, 0.4),
                0 0 45px rgba(180, 200, 255, 0.2);
-
-  /* ✅ 呼吸动画 */
-  animation: glowPulse 2.5s ease-in-out infinite alternate,
-             fadeInDown 1.2s ease-out both;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
 }
 
-/* 呼吸节奏动画 */
 @keyframes glowPulse {
   from {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
@@ -66,126 +89,58 @@ html, body {
   }
 }
 
-.menu button {
-  background: #fff;               /* ✅ 改成白底 */
-  color: #000;                    /* ✅ 黑字 */
-  border: none;                   /* 去掉边框 */
+.menu-button {
+  background: #fff;
+  color: #000;
+  border: none;
   padding: 0.55rem 1.3rem;
   border-radius: 3px;
   font-size: 0.9rem;
   font-family: "DM Mono", monospace;
-  font-weight: 600; /* ✅ 字体加粗 */
+  font-weight: 600;
   cursor: pointer;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* ✅ 轻微阴影，让按钮悬浮 */
-  animation: fadeInDown 1.2s ease-out both;
-  animation-delay: 0.2s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* 鼠标悬停效果 */
-.menu button:hover {
+.menu-button:hover {
   background: #000;
   color: #fff;
   box-shadow: 0 3px 15px rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
-/* ------------------------------
-   HERO SECTION (Part 1 - Fluid Canvas)
------------------------------- */
-section.hero {
+/* =====================================================
+   🌊 FLUID ANIMATION SECTION
+   ===================================================== */
+.fluid-section {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-section.hero canvas {
+#fluid-canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-}
-
-/* ------------------------------
-   FOOTER TEXT
------------------------------- */
-.hero-footer {
-  position: absolute;
-  bottom: 2rem;
-  left: 0;
-  width: 100%;
-  padding: 0 3vw; /* ✅ 动态左右间距，避免超出屏幕 */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  z-index: 5;
-
-  font-size: clamp(0.75rem, 0.9vw, 1rem); /* ✅ 自适应字号 */
-  letter-spacing: 0.12rem;
-  text-transform: uppercase;
-  color: #fff;
-  opacity: 0.9;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1.5s ease-out both;
-  box-sizing: border-box; /* ✅ 确保 padding 不影响宽度 */
-}
-
-/* 可选：在极小屏幕时自动换行居中 */
-@media (max-width: 600px) {
-  .hero-footer {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0 1rem;
-    text-align: center;
-  }
+  display: block;
 }
 
 /* =====================================================
-   🎬 CARD ANIMATIONS SECTION
+   🎴 HERO CARDS SECTION
    ===================================================== */
-
-:root {
-    --dark: #000;
-    --light: #f9f4eb;
-    --light2: #f0ece5;
-    --accent-1: #e5d9f6;
-    --accent-2: #ffd2f3;
-    --accent-3: #fcdca6;
-}
-
-section.cards-hero {
+.cards-hero {
   position: relative;
   width: 100vw;
   height: 100vh;
   padding: 2rem;
   overflow: hidden;
   background-color: var(--light);
-  color: var(--dark);
-}
-
-.about,
-.outro {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  padding: 2rem;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--dark);
-  color: var(--light);
-}
-
-.about h1,
-.outro h1 {
-  font-size: 1.5rem;
-  font-weight: 500;
 }
 
 .hero-cards {
@@ -218,13 +173,6 @@ section.cards-hero {
   justify-content: space-between;
 }
 
-.hero-cards .card span {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-family: "DM Mono";
-  font-weight: 500;
-}
-
 #hero-card-1 {
   background-color: var(--accent-1);
   transform-origin: top right;
@@ -242,7 +190,26 @@ section.cards-hero {
   z-index: 0;
 }
 
-.services {
+/* =====================================================
+   📄 SECTION DIVIDERS
+   ===================================================== */
+.section-divider {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+/* =====================================================
+   💼 SERVICES SECTION
+   ===================================================== */
+.services-section {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -258,12 +225,10 @@ section.cards-hero {
   will-change: transform;
 }
 
-.services-header h1 {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.cards {
+/* =====================================================
+   🔄 FLIP CARDS SECTION
+   ===================================================== */
+.flip-cards-section {
   position: fixed;
   top: 0;
   left: 0;
@@ -297,12 +262,11 @@ section.cards-hero {
   opacity: 0;
 }
 
-.cards-container .card .card-wrapper {
+.card-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
 
 .flip-card-inner {
   position: relative;
@@ -319,10 +283,10 @@ section.cards-hero {
   border-radius: 1rem;
   backface-visibility: hidden;
   overflow: hidden;
+  padding: clamp(0.75rem, 2vw, 1rem);
 }
 
 .flip-card-front {
-  padding: clamp(0.75rem, 2vw, 1rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -334,7 +298,6 @@ section.cards-hero {
 #card-3 .flip-card-front { background-color: var(--accent-3); }
 
 .flip-card-back {
-  padding: clamp(0.75rem, 2vw, 1rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -383,7 +346,6 @@ section.cards-hero {
 /* =====================================================
    📱 RESPONSIVE DESIGN
    ===================================================== */
-
 @media (max-width: 1024px) {
   .hero-cards {
     width: min(85%, 450px);
@@ -400,17 +362,24 @@ section.cards-hero {
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .menu-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
   .hero-cards {
     width: 80%;
     max-width: 400px;
-  }
-
-  .hero-cards .card span {
-    font-size: 0.65rem;
-  }
-
-  .services-header h1 {
-    font-size: 1.2rem;
   }
 
   .cards-container {
@@ -439,7 +408,6 @@ section.cards-hero {
   .hero-cards .card {
     width: 100%;
     max-width: 200px;
-    aspect-ratio: 5/7;
   }
 
   .cards-container {
@@ -455,4 +423,3 @@ section.cards-hero {
     max-height: 400px;
   }
 }
-

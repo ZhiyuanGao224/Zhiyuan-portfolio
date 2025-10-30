@@ -300,23 +300,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     ScrollTrigger.create({
-        trigger: ".services",
+        trigger: ".services-section",
         start: "top top",
         end: `+=${window.innerHeight * 4}px`,
-        pin: ".services",
+        pin: ".services-section",
         pinSpacing: true,
     });
 
     ScrollTrigger.create({
-        trigger: ".services",
+        trigger: ".services-section",
         start: "top top",
         end: `+=${window.innerHeight * 4}px`,
         onLeave: () => {
-            const servicesSection = document.querySelector(".services");
+            const servicesSection = document.querySelector(".services-section");
             const servicesRect = servicesSection.getBoundingClientRect();
             const servicesTop = servicesRect.top + window.pageYOffset;
 
-            gsap.set(".cards", {
+            gsap.set(".flip-cards-section", {
                 position: "absolute",
                 top: servicesTop,
                 left: 0,
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         },
         onEnterBack: () => {
-            gsap.set(".cards", {
+            gsap.set(".flip-cards-section", {
                 position: "fixed",
                 top: 0,
                 left: 0,
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     ScrollTrigger.create({
-        trigger: ".services",
+        trigger: ".services-section",
         start: "top bottom",
         end: `+=${window.innerHeight * 4}px`,
         scrub: 1,
