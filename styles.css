@@ -161,7 +161,7 @@ section.hero canvas {
   box-sizing: border-box;
 }
 
-#part3 :root {
+#part3 {
   --dark: #000000;
   --light: #f9f4eb;
   --light2: #f0ece5;
