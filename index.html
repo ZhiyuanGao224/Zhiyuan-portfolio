@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jack‘s Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+  #kins-kins-popup,
+  #kins_root {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+   </style>
+
   </head>
+
   <body>
     <div class="menu">
       <p> Zhiyuan</p>
@@ -171,14 +181,21 @@
     <section class="outro">
         <h1>The story's not over yet</h1>
     </section>
-    
-    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-    <script src="shaders.js"></script>
-    <script src="script.js"></script>
-    <script src="gsap.min_part3.js"></script>
-    <script src="ScrollTrigger.min_part3.js"></script>
-    <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
-    <script type="module" src="script_part3.js"></script>
-<!-- ========== PART 3 SECTION END ========== -->
+   <!-- ========== JAVASCRIPT LOADING SECTION ========== -->
+
+<!-- ✅ Three.js -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<!-- ✅ GSAP 核心 + ScrollTrigger 插件 -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<!-- ✅ 平滑滚动 -->
+<script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script>
+
+<!-- ✅ 你自己的脚本文件 -->
+<script src="./shaders.js"></script>
+<script src="./script.js"></script>
+<script type="module" src="./script_part3.js"></script>
   </body>
 </html>
