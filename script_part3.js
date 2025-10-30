@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const smoothStep = (p) => p * p * (3 - 2 * p);
 
     ScrollTrigger.create({
-        trigger: ".hero",
+        trigger: ".hero-cards-section",
         start: "top top",
         end: "75% top",
         scrub: 1,
