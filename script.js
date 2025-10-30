@@ -74,8 +74,8 @@ const displayMaterial = new THREE.ShaderMaterial({
   fragmentShader: displayFragmentShader,
 });
 
-loadImage("网站part1/assets/portrait_top.JPG", topTexture, topTextureSize);
-loadImage("网站part1/assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
+loadImage("assets/portrait_top.JPG", topTexture, topTextureSize);
+loadImage("assets/portrait_bottom.PNG", bottomTexture, bottomTextureSize);
 
 const planeGeometry = new THREE.PlaneGeometry(2, 2);
 const displayMesh = new THREE.Mesh(planeGeometry, displayMaterial);
