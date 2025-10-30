@@ -1,6 +1,11 @@
-(function() {
+window.addEventListener('load', function() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
         console.error('GSAP or ScrollTrigger not loaded');
+        return;
+    }
+
+    if (typeof Lenis === 'undefined') {
+        console.error('Lenis not loaded');
         return;
     }
 
@@ -211,4 +216,4 @@
     console.log('- Hero cards found:', document.querySelectorAll('#hero-card-1, #hero-card-2, #hero-card-3').length);
     console.log('- Service cards found:', document.querySelectorAll('#card-1, #card-2, #card-3').length);
     console.log('- Flip card inners found:', document.querySelectorAll('.flip-card-inner').length);
-})();
+});
