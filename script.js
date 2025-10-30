@@ -1,7 +1,7 @@
 window.addEventListener("load", init);
 
 function init() {
-  const canvas = document.querySelector("#fluid-canvas");
+  const canvas = document.querySelector("canvas");
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,

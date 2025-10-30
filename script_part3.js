@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const smoothStep = (p) => p * p * (3 - 2 * p);
 
     ScrollTrigger.create({
-        trigger: "#part3 .hero",
+        trigger: ".hero",
         start: "top top",
         end: "75% top",
         scrub: 1,
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 0.5,
                 smoothStep(progress)
             );
-            gsap.set("#part3 .hero-cards", { opacity: heroCardContainerOpacity });
+            gsap.set(".hero-cards", { opacity: heroCardContainerOpacity });
 
             ["#hero-card-1", "#hero-card-2", "#hero-card-3"].forEach(
                 (cardId, index) => {
@@ -53,23 +53,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     ScrollTrigger.create({
-        trigger: "#part3 .services",
+        trigger: ".services",
         start: "top top",
         end: `+=${window.innerHeight * 4}px`,
-        pin: "#part3 .services",
+        pin: ".services",
         pinSpacing: true,
     });
 
     ScrollTrigger.create({
-        trigger: "#part3 .services",
+        trigger: ".services",
         start: "top top",
         end: `+=${window.innerHeight * 4}px`,
         onLeave: () => {
-            const servicesSection = document.querySelector("#part3 .services");
+            const servicesSection = document.querySelector(".services");
             const servicesRect = servicesSection.getBoundingClientRect();
             const servicesTop = servicesRect.top + window.pageYOffset;
 
-            gsap.set("#part3 .cards", {
+            gsap.set(".cards", {
                 position: "absolute",
                 top: servicesTop,
                 left: 0,
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         },
         onEnterBack: () => {
-            gsap.set("#part3 .cards", {
+            gsap.set(".cards", {
                 position: "fixed",
                 top: 0,
                 left: 0,
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     ScrollTrigger.create({
-        trigger: "#part3 .services",
+        trigger: ".services",
         start: "top bottom",
         end: `+=${window.innerHeight * 4}px`,
         scrub: 1,
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const headerProgress = gsap.utils.clamp(0, 1, progress * 0.9);
             const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
-            gsap.set("#part3 .services-header", { y: headerY });
+            gsap.set(".services-header", { y: headerY });
             ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
                 const delay = index * 0.5;
                 const cardProgress = gsap.utils.clamp(
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     1,
                     (progress - delay * 0.1) / (0.9 - delay * 0.1)
                 );
-                const innerCard = document.querySelector(`#part3 ${cardId} .flip-card-inner`);
+                const innerCard = document.querySelector(`${cardId} .flip-card-inner`);
 
                 let y;
                 if (cardProgress < 0.4) {
