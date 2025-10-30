@@ -9,12 +9,14 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;     /* ✅ 不固定高度，允许滚动 */
+  overflow-x: hidden;   /* ✅ 只隐藏水平滚动 */
+  overflow-y: auto;     /* ✅ 允许垂直滚动 */
   background-color: #fff;
   font-family: "DM Mono", monospace;
   color: #000;
 }
+
 
 /* ------------------------------
    MENU (透明悬浮)
