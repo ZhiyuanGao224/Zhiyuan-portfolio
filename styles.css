@@ -414,5 +414,16 @@ canvas {
 #part3 .flip-card-back { background: #fff; color: #000; }
 #part3 .flip-card-front span { color: #fff; }
 #part3 .flip-card-back span { color: #000; }
+
+   canvas#fluid-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+#part3 {
+  position: relative;
+  z-index: 1;
+}
    
 }
