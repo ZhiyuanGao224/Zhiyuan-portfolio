@@ -208,6 +208,7 @@ section.hero canvas {
   position: relative;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 #part3 .about,
@@ -285,9 +286,10 @@ section.hero canvas {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100svh;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   z-index: -1;
   background-color: var(--light);
 }
@@ -311,24 +313,10 @@ section.hero canvas {
 }
 
 #part3 .card .card-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 100%;
   height: 100%;
-  animation: floating 2s infinite ease-in-out;
 }
-
-@keyframes floating {
-  0% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, -55%); }
-  100% { transform: translate(-50%, -50%); }
-}
-
-#part3 #card-1 .card-wrapper { animation-delay: 0s; }
-#part3 #card-2 .card-wrapper { animation-delay: 0.25s; }
-#part3 #card-3 .card-wrapper { animation-delay: 0.5s; }
 
 #part3 .flip-card-inner {
   position: relative;
