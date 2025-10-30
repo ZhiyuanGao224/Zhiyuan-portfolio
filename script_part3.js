@@ -115,6 +115,10 @@
         onUpdate: (self) => {
             const progress = self.progress;
 
+            if (progress > 0 && progress < 0.1) {
+                console.log('Services animation started, progress:', progress);
+            }
+
             const headerProgress = gsap.utils.clamp(0, 1, progress * 0.9);
             const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
             gsap.set(".services-header", { y: headerY });
@@ -189,12 +193,22 @@
                     rotate,
                     opacity,
                 });
-                gsap.set(innerCard, { rotationY: rotateY });
+
+                if (innerCard) {
+                    gsap.set(innerCard, { rotationY: rotateY });
+                } else {
+                    console.warn(`Inner card not found for ${cardId}`);
+                }
             });
         }
 
     });
 
     ScrollTrigger.refresh();
-    console.log('Part3 animations initialized - ScrollTriggers:', ScrollTrigger.getAll().length);
+
+    console.log('Part3 animations initialized');
+    console.log('- ScrollTriggers:', ScrollTrigger.getAll().length);
+    console.log('- Hero cards found:', document.querySelectorAll('#hero-card-1, #hero-card-2, #hero-card-3').length);
+    console.log('- Service cards found:', document.querySelectorAll('#card-1, #card-2, #card-3').length);
+    console.log('- Flip card inners found:', document.querySelectorAll('.flip-card-inner').length);
 })();
