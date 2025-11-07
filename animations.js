@@ -74,10 +74,11 @@ export function initCardAnimations() {
       const servicesSection = document.querySelector(".services-section");
       const servicesRect = servicesSection.getBoundingClientRect();
       const servicesTop = servicesRect.top + window.pageYOffset;
+      const servicesBottom = servicesTop + servicesRect.height;
 
       gsap.set(".flip-cards-section", {
         position: "absolute",
-        top: servicesTop,
+        top: servicesBottom,
         left: 0,
         width: "100vw",
         height: "100vh",
