@@ -61,51 +61,26 @@ export function initCardAnimations() {
   ScrollTrigger.create({
     trigger: ".services-section",
     start: "top top",
-    end: `+=${window.innerHeight * 5}px`,
-    pin: ".services-section",
+    end: `+=${window.innerHeight * 2}px`,
+    pin: true,
     pinSpacing: true,
-  });
-
-  ScrollTrigger.create({
-    trigger: ".services-section",
-    start: "top top",
-    end: `+=${window.innerHeight * 5}px`,
-    onLeave: () => {
-      const servicesSection = document.querySelector(".services-section");
-      const servicesRect = servicesSection.getBoundingClientRect();
-      const servicesTop = servicesRect.top + window.pageYOffset;
-      const servicesBottom = servicesTop + servicesRect.height;
-
-      gsap.set(".flip-cards-section", {
-        position: "absolute",
-        top: servicesBottom,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-      });
-    },
-    onEnterBack: () => {
-      gsap.set(".flip-cards-section", {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-      });
+    scrub: 1,
+    onUpdate: (self) => {
+      const headerProgress = gsap.utils.clamp(0, 1, self.progress);
+      const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
+      gsap.set(".services-header", { y: headerY });
     }
   });
 
   ScrollTrigger.create({
-    trigger: ".services-section",
-    start: "top bottom",
-    end: `+=${window.innerHeight * 5}px`,
+    trigger: ".flip-cards-section",
+    start: "top top",
+    end: `+=${window.innerHeight * 3}px`,
+    pin: true,
+    pinSpacing: true,
     scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
-
-      const headerProgress = gsap.utils.clamp(0, 1, progress * 0.2);
-      const headerY = gsap.utils.interpolate("400%", "0%", smoothStep(headerProgress));
-      gsap.set(".services-header", { y: headerY });
 
       ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
         const adjustedProgress = Math.max(0, (progress - 0.2) / 0.8);
@@ -175,19 +150,19 @@ export function initCardAnimations() {
           rotateY = 180;
         }
 
-     // 不再在外层加 rotate，避免覆盖 3D 翻转
-gsap.set(cardId, {
-  y,
-  x,
-  scale,
-  opacity,
-});
+        // 不再在外层加 rotate，避免覆盖 3D 翻转
+        gsap.set(cardId, {
+          y,
+          x,
+          scale,
+          opacity,
+        });
 
-// 把旋转和翻转都交给内层处理
-gsap.set(innerCard, {
-  rotationY: rotateY,
-  rotate,
-});
+        // 把旋转和翻转都交给内层处理
+        gsap.set(innerCard, {
+          rotationY: rotateY,
+          rotate,
+        });
 
       });
     }
