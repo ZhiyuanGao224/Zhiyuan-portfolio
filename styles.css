@@ -236,7 +236,8 @@ canvas {
 
 .split-section .intro h1,
 .split-section .outro h1 {
-  width: 30%;
+  width: 100%;
+  white-space: nowrap;
   margin: 0 auto;
 }
 
