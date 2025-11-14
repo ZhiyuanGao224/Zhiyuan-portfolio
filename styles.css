@@ -1,0 +1,579 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+
+:root {
+  --bg: #0f0f0f;
+  --fg: #fff;
+  --card-1: #b2b2b2;
+  --card-2: #ce2017;
+  --card-3: #2f2f2f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: "Instrument Serif", serif;
+  color: #000;
+  overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+/* ------------------------------
+   MENU + OVERLAY
+------------------------------ */
+.menu {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 10;
+  background: none;
+}
+
+.menu p {
+  color: #000;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  font-family: "Instrument Serif", serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: left;
+  text-transform: capitalize;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 25px rgba(255, 255, 255, 0.4),
+    0 0 45px rgba(180, 200, 255, 0.2);
+  animation: glowPulse 2.5s ease-in-out infinite alternate,
+    fadeInDown 1.2s ease-out both;
+}
+
+.menu-trigger {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-family: "Instrument Serif", serif;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  animation: fadeInDown 1.2s ease-out both;
+  animation-delay: 0.2s;
+}
+
+.menu-trigger:hover {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 3px 15px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100svh;
+  background-color: #050505;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay-close {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 5;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  font-size: 0.8rem;
+  padding: 0.65rem 1.2rem;
+  cursor: pointer;
+  font-family: "Instrument Serif", serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.overlay-close:hover {
+  background: #fff;
+  color: #000;
+}
+
+.menu-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+  transform: translate(-80px, -80px) scale(1.3) rotate(-12deg);
+  opacity: 0.2;
+}
+
+.menu-items,
+.menu-footer {
+  width: 100%;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.menu-items .col-lg {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-items .col-sm,
+.menu-footer .col-sm {
+  flex: 2;
+}
+
+.menu-preview-img {
+  position: relative;
+  width: 50%;
+  max-width: 360px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.menu-preview-img img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform, opacity;
+}
+
+.menu-items .col-sm {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 2vw, 2.5rem) 0;
+}
+
+.menu-links,
+.menu-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.link,
+.social {
+  padding-bottom: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.link a,
+.social a,
+.menu-footer a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  will-change: transform, opacity;
+}
+
+.link a {
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.03em;
+  transform: translateY(120%);
+  opacity: 0.25;
+}
+
+.social a,
+.menu-footer a {
+  font-family: "Instrument Serif", serif;
+  color: #8f8f8f;
+  font-size: 0.9rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+}
+
+.social a:hover,
+.menu-footer a:hover {
+  color: #fff;
+}
+
+.menu-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.menu-footer .col-lg {
+  flex: 3;
+}
+
+.menu-footer .col-sm {
+  display: flex;
+  gap: 1rem;
+}
+
+.link a::after,
+.social a::after,
+.menu-footer a::after {
+  content: "";
+  position: absolute;
+  top: 102%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.6, 0, 0.4, 1);
+}
+
+.link a:hover::after,
+.social a:hover::after,
+.menu-footer a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (max-width: 900px) {
+  .menu-items .col-lg {
+    display: none;
+  }
+
+  .menu-items .col-sm {
+    padding: 0;
+  }
+
+  .menu-footer {
+    position: static;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .menu-links .link a::after,
+  .menu-socials .social a::after {
+    display: none;
+  }
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.3),
+      0 0 35px rgba(180, 200, 255, 0.1);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+      0 0 40px rgba(200, 220, 255, 0.6),
+      0 0 60px rgba(180, 200, 255, 0.4);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------
+   HERO SECTION
+------------------------------ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  width: 100%;
+  padding: 0 3vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 5;
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 1.5s ease-out both;
+  box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+}
+
+/* ------------------------------
+   TRANSITION BAND
+------------------------------ */
+.transition-band {
+  position: relative;
+  width: 100%;
+  min-height: 35vh;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, #0f0f0f 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.transition-band p {
+  font-family: "Instrument Serif", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #111;
+  text-align: center;
+}
+
+/* ------------------------------
+   SPLIT SECTION
+------------------------------ */
+.split-section {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: "Instrument Serif", serif;
+}
+
+.split-section section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  padding: 2rem;
+  background-color: var(--bg);
+  color: inherit;
+}
+
+.split-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.split-section h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.split-section p {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.split-section .intro,
+.split-section .outro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.split-section .intro h1,
+.split-section .outro h1 {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.split-section .sticky {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.split-section .sticky-header {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.split-section .sticky-header h1 {
+  position: relative;
+  text-align: center;
+  will-change: transform, opacity;
+  transform: translateY(40px);
+  opacity: 0;
+}
+
+.split-section .card-container {
+  position: relative;
+  width: 75%;
+  display: flex;
+  perspective: 1000px;
+  transform: translateY(40px);
+  will-change: width;
+}
+
+.split-section .card {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 5/7;
+  transform-style: preserve-3d;
+  transform-origin: top;
+}
+
+#card-1 {
+  border-radius: 20px 0 0 20px;
+}
+
+#card-3 {
+  border-radius: 0 20px 20px 0;
+}
+
+.split-section .card-front,
+.split-section .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.split-section .card-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transform: rotateY(180deg);
+  padding: 2rem;
+}
+
+.split-section .card-back span {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  opacity: 0.4;
+}
+
+#card-1 .card-back {
+  background-color: var(--card-1);
+  color: var(--bg);
+}
+
+#card-2 .card-back {
+  background-color: var(--card-2);
+}
+
+#card-3 .card-back {
+  background-color: var(--card-3);
+}
+
+@media (max-width: 1000px) {
+  .split-section h1 {
+    font-size: 3rem;
+  }
+
+  .split-section .intro h1,
+  .split-section .outro h1 {
+    width: 100%;
+  }
+
+  .split-section .sticky {
+    min-height: auto;
+    padding: 4rem 2rem;
+    flex-direction: column;
+  }
+
+  .split-section .sticky-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin-bottom: 4rem;
+  }
+
+  .split-section .sticky-header h1 {
+    opacity: 1;
+    transform: none;
+  }
+
+  .split-section .card-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 2rem;
+    transform: none;
+  }
+
+  .split-section .card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 20px !important;
+  }
+
+  #card-1,
+  #card-2,
+  #card-3,
+  .split-section .card-back {
+    transform: none;
+  }
+}
